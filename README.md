@@ -18,7 +18,7 @@ Neovim (0.5 or newer)
 You can install the TabToggleTerm.nvim plugin using your favorite package manager. For example, using packer:
 
 ```vim
-use "watanany/tabtoggleterm"
+use "watanany/tabtoggleterm.nvim"
 ```
 
 ## Configuration
