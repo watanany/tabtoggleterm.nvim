@@ -2,6 +2,8 @@
 
 The tabtoggleterm.nvim plugin for Neovim provides an easy way to toggle a terminal window within your current tab. This plugin is useful for developers who need quick access to a terminal without leaving their Neovim environment.
 
+https://github.com/watanany/tabtoggleterm.nvim/assets/5927216/ef576b4d-ba9c-4bcc-9089-368bd08ac9ba
+
 ## Features
 
 Tab-specific Terminals: Opens a terminal in your current tab, ensuring a clean and organized workspace.
