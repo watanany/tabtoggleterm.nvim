@@ -34,10 +34,11 @@ function M.tab_toggle_term()
     local buffer = vim.api.nvim_create_buf(false, false)
 
     vim.cmd(string.format("keepalt buffer %d", buffer))
-    vim.fn.termopen(vim.o.shell, {
+    vim.fn.jobstart(vim.o.shell, {
+      term = true,
       on_exit = build_exit_handler(tab),
     })
-    vim.api.nvim_buf_set_option(buffer, "filetype", constants.FILETYPE)
+    vim.api.nvim_set_option_value("filetype", constants.FILETYPE, { buf = buffer })
 
     termwin[tab] = window
     termbuf[tab] = buffer
@@ -55,12 +56,12 @@ function M.tab_toggle_term()
     local buffer = vim.api.nvim_create_buf(false, false)
 
     vim.cmd(string.format("keepalt buffer %d", buffer))
-    vim.fn.termopen(vim.o.shell, {
+    vim.fn.jobstart(vim.o.shell, {
+      term = true,
       on_exit = build_exit_handler(tab),
     })
-    vim.api.nvim_buf_set_option(buf, "filetype", constants.FILETYPE)
+    vim.api.nvim_set_option_value("filetype", constants.FILETYPE, { buf = buffer })
 
-    termwin[tab] = termwin[tab]
     termbuf[tab] = buffer
   else
     vim.api.nvim_win_close(termwin[tab], true)
