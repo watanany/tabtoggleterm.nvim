@@ -32,40 +32,36 @@ function M.tab_toggle_term()
     vim.cmd(string.format("botright split | resize %d", M.config.size))
     local window = vim.api.nvim_get_current_win()
     local buffer = vim.api.nvim_create_buf(false, false)
+    vim.api.nvim_set_option_value("filetype", constants.FILETYPE, { buf = buffer })
 
     vim.cmd(string.format("keepalt buffer %d", buffer))
     vim.fn.jobstart(vim.o.shell, {
       term = true,
       on_exit = build_exit_handler(tab),
     })
-    vim.api.nvim_set_option_value("filetype", constants.FILETYPE, { buf = buffer })
 
     termwin[tab] = window
     termbuf[tab] = buffer
   elseif not window_is_valid and buffer_is_valid then
     vim.cmd(string.format("botright split | resize %d", M.config.size))
     local window = vim.api.nvim_get_current_win()
-    local buffer = termbuf[tab]
 
-    vim.cmd(string.format("keepalt buffer %d", buffer))
+    vim.cmd(string.format("keepalt buffer %d", termbuf[tab]))
 
     termwin[tab] = window
-    termbuf[tab] = termbuf[tab]
   elseif window_is_valid and not buffer_is_valid then
-    local window = termwin[tab]
     local buffer = vim.api.nvim_create_buf(false, false)
+    vim.api.nvim_set_option_value("filetype", constants.FILETYPE, { buf = buffer })
 
     vim.cmd(string.format("keepalt buffer %d", buffer))
     vim.fn.jobstart(vim.o.shell, {
       term = true,
       on_exit = build_exit_handler(tab),
     })
-    vim.api.nvim_set_option_value("filetype", constants.FILETYPE, { buf = buffer })
 
     termbuf[tab] = buffer
   else
     vim.api.nvim_win_close(termwin[tab], true)
-
     termwin[tab] = nil
   end
 end
