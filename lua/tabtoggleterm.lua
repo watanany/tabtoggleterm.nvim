@@ -7,6 +7,7 @@ local M = {}
 -- default config
 M.config = {
   size = 20,
+  persist_size = false,
 }
 
 -- neovim window & buffer caches
@@ -31,6 +32,11 @@ function M.tab_toggle_term()
   if not window_is_valid and not buffer_is_valid then
     vim.cmd(string.format("botright split | resize %d", M.config.size))
     local window = vim.api.nvim_get_current_win()
+
+    if M.config.persist_size then
+      vim.api.nvim_set_option_value("winfixheight", true, { win = window })
+    end
+
     local buffer = vim.api.nvim_create_buf(false, false)
     vim.api.nvim_set_option_value("filetype", constants.FILETYPE, { buf = buffer })
 
@@ -45,6 +51,10 @@ function M.tab_toggle_term()
   elseif not window_is_valid and buffer_is_valid then
     vim.cmd(string.format("botright split | resize %d", M.config.size))
     local window = vim.api.nvim_get_current_win()
+
+    if M.config.persist_size then
+      vim.api.nvim_set_option_value("winfixheight", true, { win = window })
+    end
 
     vim.cmd(string.format("keepalt buffer %d", termbuf[tab]))
 

@@ -30,6 +30,7 @@ After installation, you can configure the plugin by setting the terminal window 
 ```lua
 require("tabtoggleterm").setup({
   size = 20, -- Default terminal size, you can change this value
+  persist_size = false, -- If true, the terminal window size will be fixed (winfixheight)
 })
 
 vim.keymap.set("n", "<Space>ot", require("tabtoggleterm").tab_toggle_term, { noremap = true, silent = true })
